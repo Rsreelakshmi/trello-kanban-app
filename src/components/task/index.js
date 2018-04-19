@@ -27,7 +27,7 @@ class Task extends Component {
     let { content } = this.props;
     
     return (
-      <Card>
+      <Card className='card-container'>
         <CardText>
           <span style={ { padding: '5px 0' } }>{ content }</span>
           <IconMenu

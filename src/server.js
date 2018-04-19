@@ -141,7 +141,6 @@ const root = {
     });
   },
   deleteTask: ({ input:{ boardName, listName, taskId } }) => {
-    //TODO
     return new Promise((resolve, reject) => {
       BoardModel.findOneAndUpdate(
         { name: boardName },

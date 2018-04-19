@@ -1,7 +1,10 @@
 .card-container {
     background: #eaeaea;
+    border: 1px solid #bab6b6 !important;
+    border-radius: 10px !important;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
     margin-bottom: 1px;
-    padding: 15px;
+    padding: 0 10px;
     cursor: pointer;
 }
 
