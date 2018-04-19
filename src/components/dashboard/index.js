@@ -63,7 +63,7 @@ class Dashboard extends Component {
                                           <IconButton style={ { float: 'right', padding: 12 } } onClick={ () => this.deleteBoard(name) } tooltip='Delete Board'>
                                             <FontIcon className="material-icons" color={grey500}>delete</FontIcon>
                                           </IconButton>
-                                          <div class="clearfix"></div>
+                                          <div className="clearfix"></div>
                                         </Card> )
         }
         <FloatingActionButton

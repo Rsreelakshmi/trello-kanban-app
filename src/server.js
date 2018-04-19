@@ -31,8 +31,8 @@ const schema = buildSchema(`
     updateListName(input: CreateList!): List
     deleteList(input: CreateList!): List
     createTask(input: CreateTask!): Task
-    updateTask(input: CreateTask!): Task
-    deleteTask(input: CreateTask!): Task
+    updateTask(input: UpdateTask!): Task
+    deleteTask(input: DeleteTask!): Task
   }
   input CreateList {
     boardName: String!
@@ -42,6 +42,17 @@ const schema = buildSchema(`
     boardName: String!
     listName: String!
     taskContent: String!
+  }
+  input UpdateTask {
+    boardName: String!
+    listName: String!
+    taskId: String!
+    taskContent: String!
+  }
+  input DeleteTask {
+    boardName: String!
+    listName: String!
+    taskId: String!
   }
 `);
 const root = {
@@ -94,6 +105,8 @@ const root = {
         { name: boardName },
         (err, board) => {
           if(err) reject(err);
+          console.log("in server creatTeask");
+          console.log(board.lists);
           board.lists.filter(({ name }) => name == listName)[0].tasks.push({ content: taskContent });
           board.save((err, doc) => {
             if(err) reject(err);
@@ -127,8 +140,19 @@ const root = {
       });
     });
   },
-  deleteTask: ({ input:{ boardName, listName, taskContent } }) => {
+  deleteTask: ({ input:{ boardName, listName, taskId } }) => {
     //TODO
+    return new Promise((resolve, reject) => {
+      BoardModel.findOneAndUpdate(
+        { name: boardName },
+        { $pull: { tasks: { _id: taskId } } },
+        { new: false },
+        (err, board) => {
+          if(err) reject(err);
+            console.log("Deleted Task : ",board.lists.filter(({ name }) => name == listName)[0].tasks.filter(task => task._id == taskId)[0]);
+            resolve(board.lists.filter(({ name }) => name == listName)[0].tasks.filter(task => task._id == taskId)[0]);
+      });
+    });
   },
   updateBoardName: ({ name }) => {
     //TODO
@@ -136,8 +160,22 @@ const root = {
   updateListName: ({ input:{ boardName, listName } }) => {
     //TODO
   },
-  updateTask: ({ input:{ boardName, listName, taskContent } }) => {
+  updateTask: ({ input:{ boardName, listName, taskId, taskContent } }) => {
     //TODO
+    return new Promise((resolve, reject) => {
+      BoardModel.findOneAndUpdate(
+        { name: boardName },
+        { $pull: { tasks: { _id: taskId } } },
+        (err, board) => {
+          if(err) reject(err);
+          board.lists.filter(({ name }) => name == listName)[0].tasks.push({ content: taskContent });
+          board.save((err, doc) => {
+            if(err) reject(err);
+            console.log("Updated Task : ",doc.lists.filter(({ name }) => name == listName)[0].tasks.filter(task => task.content == taskContent)[0]);
+            resolve(doc.lists.filter(({ name }) => name == listName)[0].tasks.filter(task => task.content == taskContent)[0]);
+          });
+      });
+    });
   },
 };
 const app = express();

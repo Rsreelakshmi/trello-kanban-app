@@ -52,7 +52,7 @@ class List extends Component {
           <Card className="list-content">
             {
               tasks.length > 0 &&
-              tasks.map(card => <Task key={ card._id || Math.random() } { ...card } />)
+              tasks.map(card => <Task handleUpdate= {() => { this.showModal }} boardName={ this.props.boardName } listName={this.props.name} key={ card._id || Math.random() } { ...card } />)
             }
           </Card>
           <RaisedButton fullWidth primary label='+ ADD CARD' onClick={ this.handleModal } />

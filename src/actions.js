@@ -110,9 +110,9 @@ const createTask = (boardName, listName, taskContent) => {
     });
 };
 
-const deleteTask = (boardName, listName, taskContent) => {
+const deleteTask = (boardName, listName, taskId) => {
     let mutation = `mutation {
-        deleteTask(input: {boardName:"${boardName}", listName:"${listName}", taskContent:"${taskContent}"}){
+        deleteTask(input: {boardName:"${boardName}", listName:"${listName}", taskId:"${taskId}"}){
             _id
             content
         }
@@ -125,4 +125,19 @@ const deleteTask = (boardName, listName, taskContent) => {
     });
 };
 
-export { fetchAll, createBoard, deleteBoard, createList, deleteList, createTask, deleteTask };
+const updateTask = (boardName, listName, taskId, taskContent) => {
+    let mutation = `mutation {
+        updateTask(input: {boardName:"${boardName}", listName:"${listName}", taskId:"${taskId}", taskContent:"${taskContent}"}){
+            _id
+            content
+        }
+    }`;
+    request('http://localhost:3000/graphql', mutation).then(data => {
+        store.dispatch({
+            type: 'UPDATE_TASK',
+            data: { ...data.updateTask, boardName, listName }
+        });
+    });
+};
+
+export { fetchAll, createBoard, deleteBoard, createList, deleteList, createTask, deleteTask, updateTask };

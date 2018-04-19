@@ -30,9 +30,14 @@ let store = createStore((state = {}, action) => {
       updatedBoard3.lists = [ ...updatedBoard3.lists.filter(list => list.name !== action.data.listName), updatedList1 ];
       return Object.assign({}, state, { boards: [ ...state.boards.filter( board => board.name !== action.data.boardName ), updatedBoard3 ] });
     case 'UPDATE_TASK':
-      return state;
+    let updatedBoard5 = state.boards.filter( board => board.name === action.data.boardName )[0];
+    let updatedList7 = updatedBoard5.lists.filter(list => list.name === action.data.listName)[0];
+    updatedList7.tasks = updatedList7.tasks.filter(task => task._id !== action.data._id);
+    updatedList7.tasks.push({ _id: action.data._id, content: action.data.content });
+    updatedBoard5.lists = [ ...updatedBoard5.lists.filter(list => list.name !== action.data.listName), updatedList7 ];
+    return Object.assign({}, state, { boards: [ ...state.boards.filter( board => board.name !== action.data.boardName ), updatedBoard3 ] });
     case 'DELETE_TASK':
-      let updatedBoard4 = state.boards.filter( board => board.name === action.data.boardName )[0].lists;
+      let updatedBoard4 = state.boards.filter( board => board.name === action.data.boardName )[0];
       let updatedList2 = updatedBoard4.lists.filter(list => list.name === action.data.listName)[0];
       updatedList2.tasks = updatedList2.tasks.filter(task => task.content !== action.data.content);
       updatedBoard4.lists = [ ...updatedBoard4.lists.filter(list => list.name !== action.data.listName), updatedList2 ];
