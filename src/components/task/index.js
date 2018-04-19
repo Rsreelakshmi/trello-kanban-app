@@ -37,7 +37,7 @@ class Task extends Component {
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
             onItemClick={ this.delTask }
           >
-            <MenuItem primaryText="Edit" />
+            {/* <MenuItem primaryText="Edit" /> */}
             <MenuItem primaryText="Delete" />
           </IconMenu>
           
