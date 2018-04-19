@@ -41,6 +41,7 @@ class Board extends Component {
 
     return (
       <div className="board-container">
+        <h2>Lists</h2>
         {
           lists.length > 0 &&
           lists.map(list => <List boardName={ this.props.name } key={ list._id } { ...list } />)

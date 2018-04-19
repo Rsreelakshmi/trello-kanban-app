@@ -26,6 +26,9 @@
   to { transform: rotate(360deg); }
 }
 
+.app-container {
+  font-family: Roboto, sans-serif;
+}
 .menu-item {
   color: #00bcd4 !important;
 }
