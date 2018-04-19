@@ -162,20 +162,20 @@ const root = {
   },
   updateTask: ({ input:{ boardName, listName, taskId, taskContent } }) => {
     //TODO
-    return new Promise((resolve, reject) => {
-      BoardModel.findOneAndUpdate(
-        { name: boardName },
-        { $pull: { tasks: { _id: taskId } } },
-        (err, board) => {
-          if(err) reject(err);
-          board.lists.filter(({ name }) => name == listName)[0].tasks.push({ content: taskContent });
-          board.save((err, doc) => {
-            if(err) reject(err);
-            console.log("Updated Task : ",doc.lists.filter(({ name }) => name == listName)[0].tasks.filter(task => task.content == taskContent)[0]);
-            resolve(doc.lists.filter(({ name }) => name == listName)[0].tasks.filter(task => task.content == taskContent)[0]);
-          });
-      });
-    });
+    // return new Promise((resolve, reject) => {
+    //   BoardModel.findOneAndUpdate(
+    //     { name: boardName },
+    //     { $pull: { tasks: { _id: taskId } } },
+    //     (err, board) => {
+    //       if(err) reject(err);
+    //       board.lists.filter(({ name }) => name == listName)[0].tasks.push({ content: taskContent });
+    //       board.save((err, doc) => {
+    //         if(err) reject(err);
+    //         console.log("Updated Task : ",doc.lists.filter(({ name }) => name == listName)[0].tasks.filter(task => task.content == taskContent)[0]);
+    //         resolve(doc.lists.filter(({ name }) => name == listName)[0].tasks.filter(task => task.content == taskContent)[0]);
+    //       });
+    //   });
+    // });
   },
 };
 const app = express();

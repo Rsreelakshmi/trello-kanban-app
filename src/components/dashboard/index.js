@@ -58,8 +58,8 @@ class Dashboard extends Component {
       <h2>Boards</h2>
         {
           boards.length > 0 &&
-          boards.map(({ name, _id }) => <Card key={ _id } style={ { 'border-radius': '0', 'margin-bottom': '20px' } } >
-                                          <Link to={`/board/${ _id }`}><CardText style={ { width: '80%', float: 'left' } }>{ name }</CardText></Link>
+          boards.map(({ name, _id }) => <Card className='board-item' key={ _id } style={ { 'border-radius': '0', 'margin-bottom': '20px', 'width': '25%' } } >
+                                          <Link to={`/board/${ _id }`}><CardText style={ { width: '70%', float: 'left' } }>{ name }</CardText></Link>
                                           <IconButton style={ { float: 'right', padding: 12 } } onClick={ () => this.deleteBoard(name) } tooltip='Delete Board'>
                                             <FontIcon className="material-icons" color={grey500}>delete</FontIcon>
                                           </IconButton>

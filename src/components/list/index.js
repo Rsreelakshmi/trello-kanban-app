@@ -2,10 +2,11 @@ import React, { Component, Fragment } from 'react';
 import AppBar from 'material-ui/AppBar';
 import Task from '../task';
 import RaisedButton from 'material-ui/RaisedButton';
+import FontIcon from 'material-ui/FontIcon';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import { Card, CardText } from 'material-ui/Card';
-import { createTask, deleteTask } from '../../actions';
+import { createTask, deleteTask, deleteList } from '../../actions';
 import './index.css';
 
 class List extends Component {
@@ -39,6 +40,10 @@ class List extends Component {
     createTask(this.props.boardName, this.props.name, this.state.taskInput);
   }
 
+  delList = () => {
+    deleteList(this.props.boardName, this.props.name);
+  }
+
   render() {
     const { showModal, taskInput, tasks } = this.state;
     const { name } = this.props;
@@ -48,6 +53,8 @@ class List extends Component {
         <section className="list-container">
           <header>
             { name }
+            <FontIcon className="material-icons close" style={ { 'color': '#00bcd4', 'cursor': 'pointer', 'float':'right'} }
+            onClick={ this.delList }>close</FontIcon>
           </header>
           <Card className="list-content">
             {
